@@ -1,0 +1,261 @@
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+--bg: #080c14;
+--surface: #0d1524;
+--key-bg: #111c35;
+--key-top: #162040;
+--key-shadow: #050a10;
+--key-border: #1e2f55;
+--accent: #00d4ff;
+--accent2: #7c3aed;
+--accent3: #ffffff;
+--text: #cde0ff;
+--text-dim: #4a6a99;
+--glow: rgba(0, 212, 255, 0.35);
+--glow2: rgba(124, 58, 237, 0.4);
+--active-bg: #00d4ff;
+--active-shadow: #007fa0;
+--caps-on: #f059da;
+--shift-on: #7c3aed;
+}
+
+body {
+min-height: 100vh;
+background: var(--bg);
+background-image:
+radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,212,255,0.08) 0%, transparent 60%),
+radial-gradient(ellipse 60% 40% at 80% 80%, rgba(124,58,237,0.06) 0%, transparent 50%);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 2rem 1rem;
+font-family: 'Share Tech Mono', monospace;
+gap: 1.5rem;
+}
+
+    /* Título */
+    .title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(18px, 4vw, 32px);
+      font-weight: 900;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      text-transform: uppercase;
+      text-shadow: 0 0 20px var(--glow), 0 0 40px var(--glow);
+      animation: flicker 6s infinite;
+    }
+    .title span { color: var(--accent3); }
+
+    @keyframes flicker {
+      0%,94%,96%,98%,100% { opacity: 1; }
+      95%,97% { opacity: 0.85; }
+    }
+
+    /* Input */
+    .input-wrapper {
+      width: 100%;
+      max-width: 860px;
+      position: relative;
+    }
+    .input-wrapper::before {
+      content: '>';
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--accent);
+      font-size: 16px;
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 16px 14px 36px;
+      font-size: 18px;
+      font-family: 'Share Tech Mono', monospace;
+      background: var(--surface);
+      color: var(--accent);
+      border: 1px solid var(--key-border);
+      border-top-color: rgba(0,212,255,0.3);
+      border-radius: 6px;
+      outline: none;
+      caret-color: var(--accent);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.05em;
+    }
+    input[type="text"]::placeholder { color: var(--text-dim); }
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(0,212,255,0.15), inset 0 0 20px rgba(0,212,255,0.04);
+    }
+
+    /* Estado Caps/Shift */
+    .status-bar {
+      display: flex;
+      gap: 12px;
+      font-size: 11px;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.1em;
+    }
+    .status-pill {
+      padding: 3px 10px;
+      border-radius: 3px;
+      border: 1px solid var(--key-border);
+      color: var(--text-dim);
+      background: var(--surface);
+      transition: all 0.15s;
+    }
+    .status-pill.on {
+      color: #fff;
+      border-color: currentColor;
+    }
+    .status-pill.caps-on { color: var(--caps-on); box-shadow: 0 0 8px rgba(240,89,218,0.4); }
+    .status-pill.shift-on { color: var(--shift-on); box-shadow: 0 0 8px rgba(124,58,237,0.4); }
+
+    /* Keyboard */
+    .keyboard {
+      background: var(--surface);
+      border: 1px solid var(--key-border);
+      border-top: 1px solid rgba(0,212,255,0.2);
+      border-radius: 14px;
+      padding: clamp(12px, 2vw, 22px);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.8),
+        0 0 0 1px rgba(0,212,255,0.05),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+      width: max-content;
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+    .row { display: flex; gap: 4px; }
+    .row-f {
+      gap: 4px;
+      padding-bottom: 8px;
+      margin-bottom: 3px;
+      border-bottom: 1px solid rgba(0,212,255,0.08);
+    }
+
+    /* Botões */
+    .keyboard button {
+      height: clamp(34px, 5vw, 44px);
+      min-width: clamp(30px, 4vw, 42px);
+      padding: 0 6px;
+      background: linear-gradient(180deg, var(--key-top) 0%, var(--key-bg) 100%);
+      color: var(--text);
+      font-size: clamp(10px, 1.5vw, 12px);
+      font-weight: 400;
+      font-family: 'Share Tech Mono', monospace;
+      border: 1px solid var(--key-border);
+      border-bottom-color: rgba(0,0,0,0.5);
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.07s, transform 0.05s, box-shadow 0.07s, color 0.07s, border-color 0.1s;
+      box-shadow: 0 4px 0 var(--key-shadow), 0 6px 10px rgba(0,0,0,0.5);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      letter-spacing: 0.03em;
+      flex-shrink: 0;
+    }
+
+    .keyboard button:hover {
+      background: linear-gradient(180deg, #1e3060 0%, #162548 100%);
+      color: var(--accent);
+      border-color: rgba(0,212,255,0.3);
+    }
+
+    .keyboard button:active,
+    .keyboard button.pressed {
+      background: linear-gradient(180deg, var(--accent) 0%, #0099bb 100%) !important;
+      color: #000 !important;
+      border-color: var(--accent) !important;
+      transform: translateY(3px) !important;
+      box-shadow: 0 1px 0 var(--active-shadow), 0 0 12px var(--glow) !important;
+      font-weight: 700;
+    }
+
+    /* Caps Lock ativo */
+    .keyboard button.caps-active {
+      background: linear-gradient(180deg, #3d1050 0%, #2a0a38 100%) !important;
+      color: var(--caps-on) !important;
+      border-color: rgba(240,89,218,0.5) !important;
+      box-shadow: 0 4px 0 #1a0520, 0 0 10px rgba(240,89,218,0.3) !important;
+    }
+
+    /* Shift ativo */
+    .keyboard button.shift-active {
+      background: linear-gradient(180deg, #2a1060 0%, #1a0848 100%) !important;
+      color: var(--shift-on) !important;
+      border-color: rgba(124,58,237,0.5) !important;
+      box-shadow: 0 4px 0 #0d0520, 0 0 10px rgba(124,58,237,0.3) !important;
+    }
+
+    /* Teclas especiais */
+    .key-esc       { min-width: clamp(44px,6vw,60px) !important; color: #ff6b6b; }
+    .key-backspace { min-width: clamp(60px,10vw,92px) !important; }
+    .key-tab       { min-width: clamp(52px,8vw,74px) !important; }
+    .key-backslash { min-width: clamp(42px,6vw,60px) !important; }
+    .key-caps      { min-width: clamp(58px,9vw,82px) !important; }
+    .key-enter     { min-width: clamp(68px,10vw,98px) !important; color: var(--accent); }
+    .key-shift-l   { min-width: clamp(78px,13vw,114px) !important; }
+    .key-shift-r   { min-width: clamp(78px,13vw,114px) !important; }
+    .key-ctrl      { min-width: clamp(44px,7vw,64px) !important; }
+    .key-alt       { min-width: clamp(44px,7vw,64px) !important; }
+    .key-win       { min-width: clamp(36px,5vw,48px) !important; }
+    .key-fn        { min-width: clamp(36px,5vw,48px) !important; }
+    .key-space     { flex: 1; min-width: clamp(100px,30vw,280px) !important; }
+    .key-fkey      { min-width: clamp(26px,3.5vw,40px) !important; font-size: clamp(9px,1.2vw,11px); color: var(--text-dim); }
+
+    /* Enter e Space hover */
+    .key-enter:hover { color: var(--accent) !important; }
+
+    /* Linha de baixo flex */
+    .row-bottom { flex-wrap: wrap; }
+
+    /* Footer */
+    footer {
+      margin-top: 1rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(9px, 1.5vw, 12px);
+      letter-spacing: 0.3em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      position: relative;
+    }
+    footer::before, footer::after {
+      content: '—';
+      margin: 0 8px;
+      color: var(--accent);
+      opacity: 0.4;
+    }
+
+    /* Scanline overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Responsivo mobile */
+    @media (max-width: 600px) {
+      .keyboard { padding: 10px 8px; gap: 3px; border-radius: 10px; }
+      .row { gap: 3px; }
+      .key-space { min-width: 80px !important; }
+    }
