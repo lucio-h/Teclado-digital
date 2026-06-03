@@ -22,7 +22,7 @@ const input = document.getElementById('display');
       });
     }
 
-    // Inserir caractere na posição do cursor
+    
     function insertChar(char) {
       const start = input.selectionStart;
       const end = input.selectionEnd;
@@ -30,7 +30,7 @@ const input = document.getElementById('display');
       input.setSelectionRange(start + char.length, start + char.length);
     }
 
-    // Backspace na posição do cursor
+   
     function doBackspace() {
       const start = input.selectionStart;
       const end = input.selectionEnd;
@@ -43,7 +43,7 @@ const input = document.getElementById('display');
       }
     }
 
-    // Qual caractere deve ser inserido pela tecla
+
     function resolveChar(btn) {
       const key = btn.getAttribute('data-key');
       const shiftVal = btn.getAttribute('data-shift');
@@ -66,7 +66,7 @@ const input = document.getElementById('display');
       return key;
     }
 
-    // Clique nas teclas virtuais
+   
     buttons.forEach(btn => {
       btn.addEventListener('mousedown', e => {
         e.preventDefault();
@@ -103,7 +103,7 @@ const input = document.getElementById('display');
       });
     });
 
-    // Teclado físico → highlight + capturar estado
+  
     document.addEventListener('keydown', e => {
       const k = e.key;
 
@@ -115,7 +115,7 @@ const input = document.getElementById('display');
       }
       if (k === 'Shift') { shiftOn = true; updateShiftButtons(); updateStatusBar(); }
 
-      // Highlight nas teclas
+   
       buttons.forEach(btn => {
         const dk = btn.getAttribute('data-key');
         if (!dk) return;
